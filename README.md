@@ -9,6 +9,11 @@ In addition to supporting generator functions, HandGrip keeps the order of execu
 
 Best suited/tested with [Koa][koa] or [co][co].
 
+## Install
+```javascript
+$ npm install handgrip
+```
+
 ## Generator Helpers
 This is an example of basic usage of generator helper.
 Return a generator function with `next` as the single argument, just like [Koa’s middleware][middleware.gif]. 
