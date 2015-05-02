@@ -1,8 +1,16 @@
 {
   "name": "handgrip",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Enable generator helper for Handlebars",
-  "keyword": ["handlebars", "template", "generator", "render", "view", "koa", "co"],
+  "keyword": [
+    "handlebars",
+    "template",
+    "generator",
+    "render",
+    "view",
+    "koa",
+    "co"
+  ],
   "main": "lib/index.js",
   "engines": {
     "node": ">= 0.11.14",
@@ -21,8 +29,8 @@
     "email": "liujingwei@gmail.com"
   },
   "bugs": {
-    "url" : "http://github.com/th507/handgrip/issues",
-    "email" : "liujingwei@gmail.com"
+    "url": "http://github.com/th507/handgrip/issues",
+    "email": "liujingwei@gmail.com"
   },
   "license": "MIT",
   "dependencies": {
