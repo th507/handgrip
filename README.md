@@ -225,5 +225,5 @@ Licensed under the MIT license.
 [co]: https://github.com/tj/co
 [koa-hbs]: https://github.com/jwilm/koa-hbs
 [express-hbs]: https://github.com/barc/express-hbs
-[travis-badge]: https://travis-ci.org/jwilm/koa-hbs.png?branch=master
+[travis-badge]: https://travis-ci.org/th507/handgrip.png?branch=master
 [repo-url]: https://travis-ci.org/th507/handgrip
