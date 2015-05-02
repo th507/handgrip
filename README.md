@@ -204,7 +204,7 @@ This is normally used on the server side, so there is no minified version (yet).
 Tested on
 
 | `Handlebars` | `co` | `Node` | `io.js` |
-| -- | -- | -- | -- | -- |
+| :--: | :--: | :--: | :--: | :--: |
 | 2.0.2<br>3.0.3 | 3.0+<br>4.0+ | 0.11.14 or higher | 1.0.2 or higher |
 
 Run the test
