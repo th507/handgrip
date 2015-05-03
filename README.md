@@ -5,7 +5,9 @@ Handgrip is a simple wrapper the enables the use of generator  inside normal [Ha
 
 In addition to supporting generator functions, Handgrip keeps the order of executing generator helpers as you write them on template.
 
-[![Build Status][travis-badge]][repo-url] [![NPM version][npm-badge]][npm-package]
+[![Build Status][travis-badge]][repo-url]
+[![NPM version][npm-badge]][npm-package]
+[![License][license-badge]][license]
 
 
 Best suited/tested with [Koa][koa] or [co][co].
@@ -227,6 +229,8 @@ Licensed under the MIT license.
 [koa-hbs]: https://github.com/jwilm/koa-hbs
 [express-hbs]: https://github.com/barc/express-hbs
 [travis-badge]: https://travis-ci.org/th507/handgrip.png?branch=master
-[npm-badge]: https://badge.fury.io/js/async-js.png
-[npm-package]: http://badge.fury.io/js/async-js
+[npm-badge]: https://img.shields.io/npm/v/handgrip.svg?style=flat-square
+[npm-package]: https://www.npmjs.com/package/handgrip
+[license-badge]: http://img.shields.io/npm/l/handgrip.svg?style=flat-square
+[license]: LICENSE
 [repo-url]: https://travis-ci.org/th507/handgrip
