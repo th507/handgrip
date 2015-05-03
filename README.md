@@ -5,7 +5,7 @@ Handgrip is a simple wrapper the enables the use of generator  inside normal [Ha
 
 In addition to supporting generator functions, Handgrip keeps the order of executing generator helpers as you write them on template.
 
-[![Build Status][travis-badge]][repo-url]
+[![Build Status][travis-badge]][travis-url]
 [![NPM version][npm-badge]][npm-package]
 [![License][license-badge]][license]
 
@@ -206,9 +206,11 @@ This is normally used on the server side, so there is no minified version (yet).
 ## Tests
 Tested on
 
-| `Handlebars` | `co` | `Node` | `io.js` |
-| :--: | :--: | :--: | :--: | :--: |
-| 2.0.2<br>3.0.3 | 3.0+<br>4.0+ | 0.11.14 or higher | 1.0.2 or higher |
+- Handlebars: 2.0.2, 3.0.3
+- co: 3.0+, 4.0+
+- Node: 0.11.14 or higher
+- iojs: 1.0.2 or higher
+
 
 Run the test
 
@@ -228,9 +230,9 @@ Licensed under the MIT license.
 [co]: https://github.com/tj/co
 [koa-hbs]: https://github.com/jwilm/koa-hbs
 [express-hbs]: https://github.com/barc/express-hbs
-[travis-badge]: https://travis-ci.org/th507/handgrip.png?branch=master
+[travis-badge]: https://img.shields.io/travis/th507/handgrip.svg?style=flat-square
 [npm-badge]: https://img.shields.io/npm/v/handgrip.svg?style=flat-square
-[npm-package]: https://www.npmjs.com/package/handgrip
 [license-badge]: http://img.shields.io/npm/l/handgrip.svg?style=flat-square
+[travis-url]: https://travis-ci.org/th507/handgrip
+[npm-package]: https://www.npmjs.com/package/handgrip
 [license]: LICENSE
-[repo-url]: https://travis-ci.org/th507/handgrip
