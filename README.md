@@ -1,9 +1,9 @@
-HandGrip: Enable generator helpers for Handlebars
+Handgrip: Enable generator helpers for Handlebars
 =======
 
-HandGrip is a simple wrapper the enables the use of generator  inside normal [Handelbars][handlebars] helper.
+Handgrip is a simple wrapper the enables the use of generator  inside normal [Handelbars][handlebars] helper.
 
-In addition to supporting generator functions, HandGrip keeps the order of executing generator helpers as you write them on template.
+In addition to supporting generator functions, Handgrip keeps the order of executing generator helpers as you write them on template.
 
 [![Build Status][travis-badge]][repo-url] [![NPM version][npm-badge]][npm-package]
 
@@ -18,7 +18,7 @@ $ npm install handgrip
 ## Generator Helpers
 This is an example of basic usage of generator helper.
 Return a generator function with `next` as the single argument, just like [Koa’s middleware][middleware.gif]. 
-`yield next` tells HandGrip to continue parsing the rest of the template.
+`yield next` tells Handgrip to continue parsing the rest of the template.
 
 ```javascript
 var hbs = require("handgrip");
@@ -37,7 +37,7 @@ hbs.registerGeneratorHelper("ip", function() {
 
 
 
-Another interesting example of generator helper is to create composable component with HandGrip/Handlebars helpers.
+Another interesting example of generator helper is to create composable component with Handgrip/Handlebars helpers.
 Here, a CSS declaration helper will keep tracks of all component CSS on this page.
 
 ```html
@@ -127,9 +127,9 @@ var tpl = handgrip.render(template, options);
 var body = yield tpl(data);
 ```
 
-`HandGrip.render` accepts the same parameters and `Handlebars.compile` and returns a generator function.
+`Handgrip.render` accepts the same parameters and `Handlebars.compile` and returns a generator function.
 
-#### Convert Handblebars compiled `templateFn` to a HandGrip-compatible one
+#### Convert Handblebars compiled `templateFn` to a Handgrip-compatible one
 
 ```javascript
 var handlebars = require("handlebars");
@@ -139,21 +139,21 @@ var handgrip = require("handgrip");
 // You could use handgrip.compile(...) as well
 var tpl = handlebars.compile(template);
 
-// convert to to HandGrip-compatible
+// convert to to Handgrip-compatible
 var renderer = Handgrip.createRenderer(tpl);
 var body = yield renderer(data);
 ```
 
-`HandGrip.compile` is the same as `Handlebars.compile`.
+`Handgrip.compile` is the same as `Handlebars.compile`.
 
 ## Implementaion and caveats (Must-see for layout users)
-HandGrip keeps an array of generator functions for each `render` job.
+Handgrip keeps an array of generator functions for each `render` job.
 
-When Handlebars finishes parsing the template, it replaces those generator helper with placeholder of UUIDs. Then HandGrip begins parsing the generator array and mutate the array as new generator helpers are found, finally HandGrip fills the results back to their corresponding places.
+When Handlebars finishes parsing the template, it replaces those generator helper with placeholder of UUIDs. Then Handgrip begins parsing the generator array and mutate the array as new generator helpers are found, finally Handgrip fills the results back to their corresponding places.
 
-The common way of implementing layout (as found in [express-hbs][express-hbs] and [koa-hbs][koa-hbs]) is to render the template as string, then create another separate rendering process for layout. Unfornately, this trivial approach is not feasbile with the implementation of HandGrip, since splitting the rendering process means losing track of generator helpers in main template.
+The common way of implementing layout (as found in [express-hbs][express-hbs] and [koa-hbs][koa-hbs]) is to render the template as string, then create another separate rendering process for layout. Unfornately, this trivial approach is not feasbile with the implementation of Handgrip, since splitting the rendering process means losing track of generator helpers in main template.
 
-However, there is also an easy way of implementing layout with HandGrip.
+However, there is also an easy way of implementing layout with Handgrip.
 
 Layout template:
 ```html
