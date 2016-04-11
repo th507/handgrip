@@ -193,7 +193,7 @@ suite("generator helper", function() {
             var pa = "{{gn 'foo'}}";
             var hbs = _hbs.create();
             hbs.registerPartial("pa", pa);
-            
+
             hbs.registerGeneratorHelper("gn", function(name) {
                 return function *(next) {
                     job.call();
@@ -223,7 +223,7 @@ suite("generator helper", function() {
             var pa = "{{gn 'foo'}}";
             var hbs = _hbs.create();
             hbs.registerPartial("pa", hbs.compile(pa));
-            
+
             hbs.registerGeneratorHelper("gn", function(name) {
                 return function *(next) {
                     job.call();
@@ -288,7 +288,7 @@ suite("generator helper", function() {
         co(function*() {
             var template = "{{#block 'foo'}}{{gn 'foo'}}{{else}}{{gn 'bar'}}{{/block}}{{#block 'bar'}}{{gn 'foo'}}{{else}}{{gn 'bar'}}{{/block}}";
             var hbs = _hbs.create();
-            
+
             hbs.registerGeneratorHelper({
                 gn: function(name) {
                     return function *(next) {
@@ -323,5 +323,59 @@ suite("generator helper", function() {
             done();
         });
 
+    });
+
+    test('Registering generator helper in a `each` helper', function(done) {
+        this.timeout(1000);
+        var job = sinon.spy();
+        co(function*() {
+            var template = "{{#each array}}{{gn this}}{{/each}}";
+            var hbs = _hbs.create();
+
+            hbs.registerGeneratorHelper({
+                gn: function (name) {
+                    return function *(next) {
+                        job.call();
+                        yield next;
+                        return new hbs.SafeString( name );
+                    };
+                }
+            });
+
+            var compiled = hbs.render(template);
+            var res = yield *compiled({array: ['foo', 'bar', 3]});
+
+            assert(job.called);
+            assert(res, 'foobar3');
+
+            done();
+        })
+    });
+
+    test('Registering generator helper in a `with` helper', function(done) {
+      this.timeout(1000);
+      var job = sinon.spy();
+      co(function*() {
+        var template = "{{#with obj}}{{gn foo}}{{/with}}";
+        var hbs = _hbs.create();
+
+        hbs.registerGeneratorHelper({
+          gn: function (name) {
+            return function *(next) {
+              job.call();
+              yield next;
+              return new hbs.SafeString( name );
+            };
+          }
+        });
+
+        var compiled = hbs.render(template);
+        var res = yield *compiled({obj: {foo: 'bar'}});
+
+        assert(job.called);
+        assert(res, 'bar');
+
+        done();
+      })
     });
 });
