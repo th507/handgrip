@@ -128,14 +128,11 @@ suite("generator helper evaluation order", function() {
                 var subres = "";
 
                 if (options.fn) {
-                    var scope = {};
+                    var data = {};
                     if (options.data) {
-                        scope = _.assignIn(scope, options.data);
-                        if (scope.root && '__nextLayer__' in scope.root) {
-                            scope.root = scope.root['__nextLayer__'];
-                        }
+                        data = _hbs.createFrame(options.data);
                     }
-                    subres = options.fn(Object.create(this), {data: scope});
+                    subres = options.fn(Object.create(this), {data: data});
                 }
 
                 yield next;
@@ -181,14 +178,11 @@ suite("generator helper evaluation order", function() {
                 var subres = "";
 
                 if (options.fn) {
-                    var scope = {};
+                    var data = {};
                     if (options.data) {
-                        scope = _.assignIn(scope, options.data);
-                        if (scope.root && '__nextLayer__' in scope.root) {
-                            scope.root = scope.root['__nextLayer__'];
-                        }
+                        data = _hbs.createFrame(options.data);
                     }
-                    subres = options.fn(Object.create(this), {data: scope});
+                    subres = options.fn(Object.create(this), {data: data});
                 }
 
                 yield next;
