@@ -132,7 +132,7 @@ suite("generator helper evaluation order", function() {
                     if (options.data) {
                         data = _hbs.createFrame(options.data);
                     }
-                    subres = options.fn(Object.create(this), {data: data});
+                    subres = options.fn(_.assignIn({}, this), {data: data});
                 }
 
                 yield next;
@@ -182,7 +182,7 @@ suite("generator helper evaluation order", function() {
                     if (options.data) {
                         data = _hbs.createFrame(options.data);
                     }
-                    subres = options.fn(Object.create(this), {data: data});
+                    subres = options.fn(_.assignIn({}, this), {data: data});
                 }
 
                 yield next;
