@@ -5,203 +5,203 @@ var _ = require('lodash');
 var _hbs = require("../");
 
 suite("generator helper evaluation order", function() {
-    test("evaluation order of nested helpers", function (done) {
-        this.timeout(1000);
-        var job = sinon.spy();
-        var hbs = _hbs.create();
+  test("evaluation order of nested helpers", function (done) {
+    this.timeout(1000);
+    var job = sinon.spy();
+    var hbs = _hbs.create();
 
-        var mockyB = "B";
-        var mockyA = "A";
+    var mockyB = "B";
+    var mockyA = "A";
 
-        var subtemplate = '{{gn mockyB order=1.1}}';
-        var template = '1.{{gn mockyA order=1.0}}2.{{gn mockyB order=2.0}}';
-        var data = { mockyB: mockyB, mockyA: mockyA };
+    var subtemplate = '{{gn mockyB order=1.1}}';
+    var template = '1.{{gn mockyA order=1.0}}2.{{gn mockyB order=2.0}}';
+    var data = { mockyB: mockyB, mockyA: mockyA };
 
-        var evalOrder = [];
+    var evalOrder = [];
 
-        hbs.registerGeneratorHelper("gn", function(name, options) {
-            return function*(next) {
-                job.call();
-                var resA = yield Promise.resolve(name);
+    hbs.registerGeneratorHelper("gn", function(name, options) {
+      return function*(next) {
+        job.call();
+        var resA = yield Promise.resolve(name);
 
-                evalOrder.push("pre-" + options.hash.order);
+        evalOrder.push("pre-" + options.hash.order);
 
-                var subres = "";
+        var subres = "";
 
-                // prevent infinite loop
-                if (name === mockyA) {
-                    var xtra = hbs.compile(subtemplate);
-                    subres = xtra(Object.create(this));
-                }
+        // prevent infinite loop
+        if (name === mockyA) {
+            var xtra = hbs.compile(subtemplate);
+            subres = xtra(Object.create(this));
+        }
 
-                yield next;
+        yield next;
 
-                evalOrder.push("post-" + options.hash.order);
-                
-                return resA + subres;
-            };
-        });
-
-        var cache = hbs.render(template);
-
-        co(function*(){
-            var output = yield *cache(data);
-            assert(job.called);
-            assert.equal(output.toString(), "1.AB2.B");
-            assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-2,post-2,post-1.1,post-1");
-            done();
-        });
+        evalOrder.push("post-" + options.hash.order);
+        
+        return resA + subres;
+      };
     });
 
-    test("evaluation order of nested helpers with partial", function (done) {
-        this.timeout(1000);
-        var job = sinon.spy();
-        var hbs = _hbs.create();
+    var cache = hbs.render(template);
 
-        var mockyB = "B";
-        var mockyA = "A";
+    co(function*(){
+      var output = yield *cache(data);
+      assert(job.called);
+      assert.equal(output.toString(), "1.AB2.B");
+      assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-2,post-2,post-1.1,post-1");
+      done();
+    });
+  });
 
-        var subtemplate = '{{>pa}}';
-        var pa = "{{gn mockyB order=1.1}}";
-        var template = '1.{{gn mockyA order=1.0}}2.{{gn mockyB order=2.0}}';
-        var data = { mockyB: mockyB, mockyA: mockyA };
+  test("evaluation order of nested helpers with partial", function (done) {
+    this.timeout(1000);
+    var job = sinon.spy();
+    var hbs = _hbs.create();
 
-        var evalOrder = [];
+    var mockyB = "B";
+    var mockyA = "A";
 
-        var p = hbs.compile(pa);
-        hbs.registerPartial("pa", p);
+    var subtemplate = '{{>pa}}';
+    var pa = "{{gn mockyB order=1.1}}";
+    var template = '1.{{gn mockyA order=1.0}}2.{{gn mockyB order=2.0}}';
+    var data = { mockyB: mockyB, mockyA: mockyA };
 
-        hbs.registerGeneratorHelper("gn", function(name, options) {
-            return function*(next) {
-                job.call();
-                var resA = yield Promise.resolve(name);
+    var evalOrder = [];
 
-                evalOrder.push("pre-" + options.hash.order);
+    var p = hbs.compile(pa);
+    hbs.registerPartial("pa", p);
 
-                var subres = "";
+    hbs.registerGeneratorHelper("gn", function(name, options) {
+      return function*(next) {
+        job.call();
+        var resA = yield Promise.resolve(name);
 
-                // prevent infinite loop
-                if (name === mockyA) {
-                    var xtra = hbs.compile(subtemplate);
-                    subres = xtra(Object.create(this));
-                }
+        evalOrder.push("pre-" + options.hash.order);
 
-                yield next;
+        var subres = "";
 
-                evalOrder.push("post-" + options.hash.order);
-                
-                return resA + subres;
-            };
-        });
+        // prevent infinite loop
+        if (name === mockyA) {
+            var xtra = hbs.compile(subtemplate);
+            subres = xtra(Object.create(this));
+        }
 
-        var cache = hbs.render(template);
+        yield next;
 
-        co(function*(){
-            var output = yield *cache(data);
-            assert(job.called);
-            assert.equal(output.toString(), "1.AB2.B");
-            assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-2,post-2,post-1.1,post-1");
-            done();
-        });
+        evalOrder.push("post-" + options.hash.order);
+        
+        return resA + subres;
+      };
     });
 
-    test('evaluation order of nested generator helpers', function (done) {
-        this.timeout(1000);
-        var job = sinon.spy();
-        var hbs = _hbs.create();
+    var cache = hbs.render(template);
 
-        var mockyB = "B";
-        var mockyA = "A";
+    co(function*(){
+      var output = yield *cache(data);
+      assert(job.called);
+      assert.equal(output.toString(), "1.AB2.B");
+      assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-2,post-2,post-1.1,post-1");
+      done();
+    });
+  });
 
-        var template = '1.{{#gn mockyA order=1.0}}{{gn mockyB order=1.1}}{{/gn}}2.{{gn mockyB order=2.0}}';
-        var data = { mockyB: mockyB, mockyA: mockyA };
+  test('evaluation order of nested generator helpers', function (done) {
+    this.timeout(1000);
+    var job = sinon.spy();
+    var hbs = _hbs.create();
 
-        var evalOrder = [];
+    var mockyB = "B";
+    var mockyA = "A";
 
-        hbs.registerGeneratorHelper("gn", function(name, options) {
-            return function*(next) {
-                job.call();
-                var resA = yield Promise.resolve(name);
+    var template = '1.{{#gn mockyA order=1.0}}{{gn mockyB order=1.1}}{{/gn}}2.{{gn mockyB order=2.0}}';
+    var data = { mockyB: mockyB, mockyA: mockyA };
 
-                evalOrder.push("pre-" + options.hash.order);
+    var evalOrder = [];
 
-                var subres = "";
+    hbs.registerGeneratorHelper("gn", function(name, options) {
+      return function*(next) {
+        job.call();
+        var resA = yield Promise.resolve(name);
 
-                if (options.fn) {
-                    var data = {};
-                    if (options.data) {
-                        data = _hbs.createFrame(options.data);
-                    }
-                    subres = options.fn(_.assignIn({}, this), {data: data});
-                }
+        evalOrder.push("pre-" + options.hash.order);
 
-                yield next;
+        var subres = "";
 
-                evalOrder.push("post-" + options.hash.order);
+        if (options.fn) {
+          var data = {};
+          if (options.data) {
+            data = _hbs.createFrame(options.data);
+          }
+          subres = options.fn(_.assignIn({}, this), {data: data});
+        }
 
-                return resA + subres;
-            };
-        });
+        yield next;
 
-        var cache = hbs.render(template);
+        evalOrder.push("post-" + options.hash.order);
 
-        co(function*(){
-            var output = yield *cache(data);
-            assert(job.called);
-            assert.equal(output.toString(), "1.AB2.B");
-            assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-2,post-2,post-1.1,post-1");
-            done();
-        });
+        return resA + subres;
+      };
     });
 
-    test('evaluation order of nested generator helpers with `each` helper', function (done) {
-        this.timeout(2000);
-        var job = sinon.spy();
-        var hbs = _hbs.create();
+    var cache = hbs.render(template);
 
-        var mockyB = "B";
-        var mockyA = "A";
-        var array = ["1.1", "1.2", "1.3"];
-
-        var template = '1.{{#gn mockyA order=1.0}}{{#each array}}{{gn "C" order=this}}{{/each}}{{/gn}}2.{{gn mockyB order=2.0}}';
-        var data = { mockyB: mockyB, mockyA: mockyA, array: array };
-
-        var evalOrder = [];
-
-        hbs.registerGeneratorHelper("gn", function(name, options) {
-            return function*(next) {
-                job.call();
-                var resA = yield Promise.resolve(name);
-
-                evalOrder.push("pre-" + options.hash.order);
-
-                var subres = "";
-
-                if (options.fn) {
-                    var data = {};
-                    if (options.data) {
-                        data = _hbs.createFrame(options.data);
-                    }
-                    subres = options.fn(_.assignIn({}, this), {data: data});
-                }
-
-                yield next;
-
-                evalOrder.push("post-" + options.hash.order);
-
-                return resA + subres;
-            };
-        });
-
-        var cache = hbs.render(template);
-
-        co(function*(){
-            var output = yield *cache(data);
-            assert(job.called);
-            assert.equal(output.toString(), "1.ACCC2.B");
-            assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-1.2,pre-1.3,pre-2,post-2,post-1.3,post-1.2,post-1.1,post-1");
-            done();
-        });
+    co(function*(){
+      var output = yield *cache(data);
+      assert(job.called);
+      assert.equal(output.toString(), "1.AB2.B");
+      assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-2,post-2,post-1.1,post-1");
+      done();
     });
+  });
+
+  test('evaluation order of nested generator helpers with `each` helper', function (done) {
+    this.timeout(2000);
+    var job = sinon.spy();
+    var hbs = _hbs.create();
+
+    var mockyB = "B";
+    var mockyA = "A";
+    var array = ["1.1", "1.2", "1.3"];
+
+    var template = '1.{{#gn mockyA order=1.0}}{{#each array}}{{gn "C" order=this}}{{/each}}{{/gn}}2.{{gn mockyB order=2.0}}';
+    var data = { mockyB: mockyB, mockyA: mockyA, array: array };
+
+    var evalOrder = [];
+
+    hbs.registerGeneratorHelper("gn", function(name, options) {
+      return function*(next) {
+        job.call();
+        var resA = yield Promise.resolve(name);
+
+        evalOrder.push("pre-" + options.hash.order);
+
+        var subres = "";
+
+        if (options.fn) {
+          var data = {};
+          if (options.data) {
+            data = _hbs.createFrame(options.data);
+          }
+          subres = options.fn(_.assignIn({}, this), {data: data});
+        }
+
+        yield next;
+
+        evalOrder.push("post-" + options.hash.order);
+
+        return resA + subres;
+      };
+    });
+
+    var cache = hbs.render(template);
+
+    co(function*(){
+      var output = yield *cache(data);
+      assert(job.called);
+      assert.equal(output.toString(), "1.ACCC2.B");
+      assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-1.2,pre-1.3,pre-2,post-2,post-1.3,post-1.2,post-1.1,post-1");
+      done();
+    });
+  });
 });
 
