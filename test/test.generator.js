@@ -27,8 +27,7 @@ suite("generator helper", function() {
       assert(job.called);
       assert.equal(res, "foo");
 
-      done();
-    });
+    }).then(done);
   });
 
   test("Multiple generator helper", function (done) {
@@ -53,9 +52,7 @@ suite("generator helper", function() {
 
       assert(job.called);
       assert.equal(res, "foobar");
-
-      done();
-    });
+    }).then(done);
   });
 
   test("Register generator helper in object notation", function (done) {
@@ -82,9 +79,7 @@ suite("generator helper", function() {
 
       assert(job.called);
       assert.equal(res, "foo");
-
-      done();
-    });
+    }).then(done);
   });
 
   test("Register multiple generator helpers in object notation", function (done) {
@@ -122,9 +117,7 @@ suite("generator helper", function() {
       assert(job1.called);
       assert(job2.called);
       assert.equal(res, "foobar");
-
-      done();
-    });
+    }).then(done);
   });
 
 
@@ -145,9 +138,7 @@ suite("generator helper", function() {
 
         assert(job.called);
         assert.equal(res, "foo");
-
-        done();
-    });
+    }).then(done);
   });
 
   test("Mixing traditional helper and generatorHelper", function (done) {
@@ -180,9 +171,7 @@ suite("generator helper", function() {
       assert(job1.called);
       assert(job2.called);
       assert.equal(res, "foobar");
-
-      done();
-    });
+    }).then(done);
   });
 
   test("Registering generator helper in a partial", function (done) {
@@ -210,9 +199,7 @@ suite("generator helper", function() {
 
       assert(job.called);
       assert.equal(res, "foobar");
-
-      done();
-    });
+    }).then(done);
   });
 
   test("Registering generator helper in a compiled partial", function (done) {
@@ -240,9 +227,7 @@ suite("generator helper", function() {
 
       assert(job.called);
       assert.equal(res, "foobar");
-
-      done();
-    });
+    }).then(done);
   });
 
   test("Registering generator helper in a block helper", function(done) {
@@ -255,11 +240,11 @@ suite("generator helper", function() {
       hbs.registerGeneratorHelper({
         gn: function(name) {
           return function *(next) {
-              job.call();
+            job.call();
 
-              yield next;
+            yield next;
 
-              return new hbs.SafeString( name );
+            return new hbs.SafeString( name );
           };
         },
         block: function() {
@@ -276,9 +261,7 @@ suite("generator helper", function() {
 
       assert(job.called);
       assert.equal(res, "foo");
-
-      done();
-    });
+    }).then(done);
   });
 
   test("Registering generator helper in a block helper with conditional statement", function(done) {
@@ -318,9 +301,7 @@ suite("generator helper", function() {
 
       assert(job.called);
       assert.equal(res, "foobar");
-
-      done();
-    });
+    }).then(done);
   });
 
   test('Registering generator helper in a `each` helper', function(done) {
@@ -345,9 +326,7 @@ suite("generator helper", function() {
 
       assert(job.called);
       assert(res, 'foobar3');
-
-      done();
-    })
+    }).then(done);
   });
 
   test('Registering generator helper in a `with` helper', function(done) {
@@ -372,8 +351,6 @@ suite("generator helper", function() {
 
       assert(job.called);
       assert(res, 'bar');
-
-      done();
-    })
+    }).then(done);
   });
 });

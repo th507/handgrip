@@ -41,7 +41,6 @@ suite("generator helper nesting", function() {
       var output = yield *cache(data);
       assert(job.called);
       assert.equal(output, "1.Alice says hi Inception2.Inception");
-      done();
-    });
+    }).then(done);
   });
 });

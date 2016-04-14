@@ -49,8 +49,7 @@ suite("generator helper evaluation order", function() {
       assert(job.called);
       assert.equal(output.toString(), "1.AB2.B");
       assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-2,post-2,post-1.1,post-1");
-      done();
-    });
+    }).then(done);
   });
 
   test("evaluation order of nested helpers with partial", function (done) {
@@ -101,8 +100,7 @@ suite("generator helper evaluation order", function() {
       assert(job.called);
       assert.equal(output.toString(), "1.AB2.B");
       assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-2,post-2,post-1.1,post-1");
-      done();
-    });
+    }).then(done);
   });
 
   test('evaluation order of nested generator helpers', function (done) {
@@ -150,8 +148,7 @@ suite("generator helper evaluation order", function() {
       assert(job.called);
       assert.equal(output.toString(), "1.AB2.B");
       assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-2,post-2,post-1.1,post-1");
-      done();
-    });
+    }).then(done);
   });
 
   test('evaluation order of nested generator helpers with `each` helper', function (done) {
@@ -200,8 +197,7 @@ suite("generator helper evaluation order", function() {
       assert(job.called);
       assert.equal(output.toString(), "1.ACCC2.B");
       assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-1.2,pre-1.3,pre-2,post-2,post-1.3,post-1.2,post-1.1,post-1");
-      done();
-    });
+    }).then(done);
   });
 });
 
