@@ -208,7 +208,7 @@ Tested on
 
 - Handlebars: 2.0.2, 3.0.3
 - co: 3.0+, 4.0+
-- Node: 0.11.14 or higher
+- Node: 0.11.14, 4.4, 5.x or higher
 - iojs: 1.0.2 or higher
 
 
