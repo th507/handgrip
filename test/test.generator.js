@@ -286,12 +286,8 @@ suite("generator helper", function() {
           var options = args.pop();
           var name = args.pop();
 
-          if (name === "foo") {
-            return options.fn(this);
-          }
-          else {
-            return options.inverse(this);
-          }
+          if (name === "foo") return options.fn(this);
+          return options.inverse(this);
         }
       });
 
