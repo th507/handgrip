@@ -1,6 +1,6 @@
 {
   "name": "handgrip",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Enable generator helper for Handlebars",
   "keyword": [
     "handlebars",
