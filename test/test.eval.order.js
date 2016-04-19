@@ -31,6 +31,7 @@ suite("generator helper evaluation order", function() {
         // prevent infinite loop
         if (name === mockyA) {
             var xtra = hbs.compile(subtemplate);
+            // deprecated: use hbs.createFrame
             subres = xtra(Object.create(this));
         }
 
@@ -49,7 +50,7 @@ suite("generator helper evaluation order", function() {
       assert(job.called);
       assert.equal(output.toString(), "1.AB2.B");
       assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-2,post-2,post-1.1,post-1");
-    }).then(done);
+    }).then(done, done);
   });
 
   test("evaluation order of nested helpers with partial", function (done) {
@@ -100,7 +101,7 @@ suite("generator helper evaluation order", function() {
       assert(job.called);
       assert.equal(output.toString(), "1.AB2.B");
       assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-2,post-2,post-1.1,post-1");
-    }).then(done);
+    }).then(done, done);
   });
 
   test('evaluation order of nested generator helpers', function (done) {
@@ -111,7 +112,7 @@ suite("generator helper evaluation order", function() {
     var mockyB = "B";
     var mockyA = "A";
 
-    var template = '1.{{#gn mockyA order=1.0}}{{gn mockyB order=1.1}}{{/gn}}2.{{gn mockyB order=2.0}}';
+    var template = '1.{{#gn mockyA order=1.0}}{{gn mockyB order=1.1}}{{gn mockyA order=1.2}}{{/gn}}2.{{gn mockyB order=2.0}}';
     var data = { mockyB: mockyB, mockyA: mockyA };
 
     var evalOrder = [];
@@ -146,9 +147,9 @@ suite("generator helper evaluation order", function() {
     co(function*(){
       var output = yield *cache(data);
       assert(job.called);
-      assert.equal(output.toString(), "1.AB2.B");
-      assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-2,post-2,post-1.1,post-1");
-    }).then(done);
+      assert.equal(output.toString(), "1.ABA2.B");
+      assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-1.2,pre-2,post-2,post-1.2,post-1.1,post-1");
+    }).then(done, done);
   });
 
   test('evaluation order of nested generator helpers with `each` helper', function (done) {
@@ -197,7 +198,7 @@ suite("generator helper evaluation order", function() {
       assert(job.called);
       assert.equal(output.toString(), "1.ACCC2.B");
       assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-1.2,pre-1.3,pre-2,post-2,post-1.3,post-1.2,post-1.1,post-1");
-    }).then(done);
+    }).then(done, done);
   });
 });
 
