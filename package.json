@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/th507/handgrip",
   "scripts": {
+    "lint": "eslint lib/ --ignore-path lib/uuid.js",
     "test": "node_modules/.bin/mocha --harmony --ui tdd test/index.js"
   },
   "author": {
@@ -39,6 +40,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "co": "^4.5.2",
+    "eslint": "^2.8.0",
     "lodash": "^4.11.0",
     "mocha": "^2.4.5",
     "sinon": "^1.17.3"
