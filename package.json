@@ -23,7 +23,8 @@
   "homepage": "https://github.com/th507/handgrip",
   "scripts": {
     "lint": "eslint lib/ --ignore-path lib/uuid.js",
-    "test": "node_modules/.bin/mocha --harmony --ui tdd test/index.js"
+    "testonly": "mocha --harmony --ui tdd test/index.js",
+    "test": "${npm_package_scripts_lint} && ${npm_package_scripts_testonly}"
   },
   "author": {
     "name": "Jingwei Liu",
