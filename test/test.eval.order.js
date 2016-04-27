@@ -112,7 +112,7 @@ suite("generator helper evaluation order", function() {
     var mockyB = "B";
     var mockyA = "A";
 
-    var template = '1.{{#gn mockyA order=1.0}}{{gn mockyB order=1.1}}{{gn mockyA order=1.2}}{{/gn}}2.{{gn mockyB order=2.0}}';
+    var template = '1.{{#gn mockyA order=1.0}}{{gn mockyB order=1.1}}{{gn mockyA order=1.2}}{{/gn}}2.{{#gn mockyB order=2.0}}{{gn mockyB order=2.1}}{{/gn}}';
     var data = { mockyB: mockyB, mockyA: mockyA };
 
     var evalOrder = [];
@@ -147,8 +147,8 @@ suite("generator helper evaluation order", function() {
     co(function*(){
       var output = yield *cache(data);
       assert(job.called);
-      assert.equal(output.toString(), "1.ABA2.B");
-      assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-1.2,pre-2,post-2,post-1.2,post-1.1,post-1");
+      assert.equal(output.toString(), "1.ABA2.BB");
+      assert.equal(evalOrder.toString(), "pre-1,pre-1.1,pre-1.2,pre-2,pre-2.1,post-2.1,post-2,post-1.2,post-1.1,post-1");
     }).then(done, done);
   });
 
