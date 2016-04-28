@@ -1,2 +1,4 @@
 test
-npm-debug.log
+*.log
+.idea/
+handgrip.iml
