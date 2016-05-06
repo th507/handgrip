@@ -4,8 +4,8 @@ var co = require("co")
 var _ = require('lodash')
 var _hbs = require("../")
 
-suite("generator helper evaluation order", function() {
-  test("evaluation order of nested helpers", function (done) {
+suite("Evaluation order", function() {
+  test("Evaluation order of nested helpers", function (done) {
     this.timeout(1000)
     var job = sinon.spy()
     var hbs = _hbs.create()
@@ -53,7 +53,7 @@ suite("generator helper evaluation order", function() {
     }).then(done, done)
   })
 
-  test("evaluation order of nested helpers with partial", function (done) {
+  test("Evaluation order of nested helpers with partial", function (done) {
     this.timeout(1000)
     var job = sinon.spy()
     var hbs = _hbs.create()
@@ -104,7 +104,7 @@ suite("generator helper evaluation order", function() {
     }).then(done, done)
   })
 
-  test('evaluation order of nested generator helpers', function (done) {
+  test('Evaluation order of nested generator helpers', function (done) {
     this.timeout(1000)
     var job = sinon.spy()
     var hbs = _hbs.create()
@@ -152,7 +152,7 @@ suite("generator helper evaluation order", function() {
     }).then(done, done)
   })
 
-  test('evaluation order of nested generator helpers with `each` helper', function (done) {
+  test('Evaluation order of nested generator helpers with `each` helper', function (done) {
     this.timeout(2000)
     var job = sinon.spy()
     var hbs = _hbs.create()

@@ -3,7 +3,7 @@ var sinon = require("sinon")
 var co = require("co")
 var _hbs = require("../")
 
-suite("generator helper", function() {
+suite("Generator helper usage", function() {
   test("Simple generator helper", function (done) {
     this.timeout(1000)
     var job = sinon.spy()

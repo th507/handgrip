@@ -3,8 +3,8 @@ var sinon = require("sinon")
 var co = require("co")
 var _hbs = require("../")
 
-suite("generator helper nesting", function() {
-  test("generator helper nesting", function (done) {
+suite("Generator helper nesting", function() {
+  test("Multiple layers nesting", function (done) {
     this.timeout(1000)
     var job = sinon.spy()
     var hbs = _hbs.create()
