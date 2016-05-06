@@ -206,9 +206,9 @@ This is normally used on the server side, so there is no minified version (yet).
 ## Tests
 Tested on
 
-- Handlebars: 2.0.2, 3.0.3
+- Handlebars: 2.0.2, 3.0.3, 4.0.5
 - co: 3.0+, 4.0+
-- Node: 0.11.14, 4.4, 5.x or higher
+- Node: 0.11.14, 4.4.x, 5.x, 6.x
 - iojs: 1.0.2 or higher
 
 
