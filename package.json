@@ -41,7 +41,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "co": "^4.5.2",
-    "eslint": "^2.9.0",
+    "eslint": "^7.1.0",
     "lodash": "^4.11.0",
     "mocha": "^2.4.5",
     "sinon": "^1.17.4"
