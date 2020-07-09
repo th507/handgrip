@@ -23,7 +23,7 @@
   "homepage": "https://github.com/th507/handgrip",
   "scripts": {
     "lint": "eslint lib",
-    "testonly": "mocha --harmony --ui tdd test/index.js",
+    "testonly": "mocha --ui tdd test/index.js",
     "test": "${npm_package_scripts_lint} && ${npm_package_scripts_testonly}"
   },
   "author": {
@@ -36,14 +36,14 @@
   },
   "license": "MIT",
   "dependencies": {
-    "handlebars": "^4.0.5"
+    "handlebars": "^4.7.6"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.2.0",
     "co": "^4.5.2",
-    "eslint": "^7.1.0",
-    "lodash": "^4.11.0",
-    "mocha": "^2.4.5",
-    "sinon": "^1.17.4"
+    "eslint": "^7.4.0",
+    "lodash": "^4.17.19",
+    "mocha": "^7.2.0",
+    "sinon": "^9.0.2"
   }
 }

@@ -32,7 +32,10 @@ suite("Evaluation order", function() {
         if (name === mockyA) {
             var xtra = hbs.compile(subtemplate)
             // deprecated: use hbs.createFrame
-            subres = xtra(Object.create(this))
+            subres = xtra(Object.create(this),{
+      allowProtoPropertiesByDefault: true,
+      allowProtoMethodsByDefault: true
+    })
         }
 
         yield next
@@ -83,7 +86,10 @@ suite("Evaluation order", function() {
         // prevent infinite loop
         if (name === mockyA) {
             var xtra = hbs.compile(subtemplate)
-            subres = xtra(Object.create(this))
+            subres = xtra(Object.create(this), {
+      allowProtoPropertiesByDefault: true,
+      allowProtoMethodsByDefault: true
+    })
         }
 
         yield next
